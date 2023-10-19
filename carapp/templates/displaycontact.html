@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="p-3">
+        <table class="table-fixed">
+            <thead>
+              <tr>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">Costomer Name</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">Costomer Email Id</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">Subject</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">Messege</th>
+                <th class="border-b bg-black text-white w-1/4 px-4 py-2">Delete</th>
+              </tr>
+            </thead>
+             {% for j in contact %}
+            <tbody>
+              <tr>
+                  <td>{{j.Yname}}</td>
+                  <td>{{j.Yemail}}</td>
+                  <td>{{j.Subjct}}</td>
+                  <td>{{j.Messeges}}</td>
+                  <td>
+                    <form action="{% url 'deletecontact' contactid=j.id %}">
+                      <button type="submit">Delete</button>
+                    </form>
+                  </td>
+              </tr>
+
+            </tbody>
+             {% endfor %}
+        </table>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+        {% for i in messages %}
+            {% if i.tags == 'warning' %}
+                <script>
+                    swal('{{i}}','','warning');
+                </script>
+            {% elif i.tags == 'error' %}
+                <script>
+                    swal('{{i}}','','error');
+                </script>
+            {% else %}
+                <script>
+                    swal('{{i}}','','success');
+                </script>
+            {% endif %}
+        {% endfor %}
+    {%endif%}
+
+</body>
+</html>
+{% endblock %}

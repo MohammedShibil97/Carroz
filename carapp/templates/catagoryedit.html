@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-xl-12 col-xl-12">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Basic Form</h6>
+                            <form method="post" action="{% url 'updatebrand' dataid=data.id  %}" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Enter Catagory Name</label>
+                                    <input type="text" class="form-control" name="name3" value="{{data.Name3}}" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Enter discription</label>
+                                    <input type="text" class="form-control" name="description3" value="{{data.Description3}}" id="exampleInputPassword1">
+                                </div>
+
+                                <div class="mb-3">
+                                   <label for="input-image">Upload the product image</label>
+                                    <img src="{{data.Image6.url}}" width="100px" height="100px">
+                                   <input type="file" class="form-control" id="input-image" name="image6">
+                                </div>
+
+<!--                                <div class="mb-3 form-check">-->
+<!--                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
+<!--                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>-->
+<!--                                </div>-->
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
+                        </div>
+                    </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+        {% for i in messages %}
+            {% if i.tags == 'warning' %}
+                <script>
+                    swal('{{i}}','','warning');
+                </script>
+            {% elif i.tags == 'error' %}
+                <script>
+                    swal('{{i}}','','error');
+                </script>
+            {% else %}
+                <script>
+                    swal('{{i}}','','success');
+                </script>
+            {% endif %}
+        {% endfor %}
+    {%endif%}
+</body>
+</html>
+{% endblock %}

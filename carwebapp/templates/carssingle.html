@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Knight Bootstrap Template - Index</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-- Favicons -->
+    <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <style>
+        .hidden-link {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header" class="d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+
+            <div class="logo">
+                <a href="index.html"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>
+            </div>
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto" href="{% url 'homePage' %}">Home</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+        </div>
+    </header><!-- End Header -->
+    <div class="product_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <h1 class="product_taital"></h1>
+                    <h3 class="product_text">{{carsingle.ProName3}}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="single_product_pics">
+                        <div class="row">
+                            <div class="col-lg-9 image_col order-lg-2 order-1">
+
+                                <div class="single_product_image">
+                                    <div class="single_product_image_background">
+                                        <img src="{{carsingle.ProImage6.url}}" alt="no image" width="500px"
+                                            height="500px" data-image="images/single_1.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <form method="post" action="{% url 'checkoutSave'  %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="product_details">
+                            <div class="product_details_title">
+                                <h1>{{carsingle.ProName3}}</h1><br><br><br>
+                                <input type="hidden" value="{{carsingle.ProName3}}" name="carname" class="buy-now ">
+                                <h3>Year of Manufacturing: {{carsingle.Proyear}}</h3>
+                                <input type="hidden" value="{{carsingle.Proyear}}" name="yearman" class="buy-now ">
+                                <h3>Kilometer Driven: {{carsingle.Prokms}}</h3>
+                                <input type="hidden" value="{{carsingle.Prokms}}" name="prokm" class="buy-now ">
+                                <h3>Fuel Type: {{carsingle.Profuel}}</h3>
+                                <input type="hidden" value="{{carsingle.Profuel}}" name="profuel" class="buy-now ">
+                                {% if request.session.name %}
+                                <input type="hidden" name="name" value="{{ request.session.name }}">
+                                {% else %}
+                                <a href="{% url 'restrform' %}" class="hidden-link">Login</a>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col gap-3 rounded-lg bg-card_bg p-6 md:gap-4 lg:gap-8">
+                                <div class=" flex items-center justify-between">
+                                    <div class="flex">
+                                        {% if carsingle.ProPrice == 0 %}
+                                        <h3 class=" text-lg lg:text-[22px]">Sold Out</h3>
+                                        {% else %}
+                                        <h3 class=" text-lg lg:text-[22px]">price ₹{{carsingle.ProPrice}}</h3>
+                                        {% endif %}
+                                        <input type="hidden" value="{{carsingle.ProPrice}}" name="pricecar"
+                                            class="buy-now ">
+                                    </div><br><br><br>
+                                </div>
+                                <div class="flex gap-4 lg:gap-6">
+                                    {% if carsingle.ProPrice == 0 %}
+                                    <button type="submit" title="Click to book now"
+                                        class="hover:animate-pulse flex items-center justify-center border-2 h-10 min-w-[107px] rounded-lg false btn-disabled"
+                                        fdprocessedid="541djk" disabled>Sold Out</button><br><br>
+                                    {% else %}
+                                    <button type="submit" title="Click to book now"
+                                        class="hover:animate-pulse flex items-center justify-center border-2 h-10 min-w-[107px] rounded-lg false btn-success"
+                                        fdprocessedid="541djk">Book Now</button><br><br>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <a aria-label="Call us on +918590805355" href="https://wa.me/+918590805355"><button type="submit"
+                            title="Conact us on +918590805355"
+                            class="hover:animate-pulse flex items-center justify-center border-2 h-10 min-w-[107px] rounded-lg false btn-success"
+                            fdprocessedid="9cg8aj">Let’s Talk</button></a>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <a href="#header" class="scrollto footer-logo"><img
+                                    src="{% static 'assets/img/hero-logo.png' %}" alt=""></a>
+                            <h3>Carrozz</h3>
+                            <p>Our selection of premium cars at affordable prices is right next to you,dont miss this
+                                chance....Grab it now....</p>
+                        </div>
+                    </div>
+                    <div class="row footer-newsletter justify-content-center">
+                        <div class="col-lg-6">
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <input type="email" name="email" placeholder="Enter your Email"><input type="submit"
+                                    value="Subscribe">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="container footer-bottom clearfix">
+                <div class="copyright">
+                    &copy; Copyright <strong><span>CARROZZ</span></strong>. All Rights Reserved
+                </div>
+                <div class="credits">
+                    Designed by <a href="http://wa.me/+918590805355" target="_blank">Mohammed Shibil</a>
+                </div>
+            </div>
+        </footer><!-- End Footer -->
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+                class="bi bi-arrow-up-short"></i></a>
+    </div>
+    <!-- Vendor JS Files -->
+    <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+      {% if messages %}
+           {% for i in messages %}
+                {% if i.tags == 'warning' %}
+                      <script>
+                          swal('{{i}}','','warning');
+                      </script>
+                      {% elif i.tags == 'error' %}
+                       <script>
+                           swal('{{i}}','','error');
+                       </script>
+                      {% else %}
+                        <script>
+                           swal('{{i}}','','success');
+                       </script>
+                {% endif %}
+
+           {% endfor %}
+      {% endif %}
+</body>
+
+</html>

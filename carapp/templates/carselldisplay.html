@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="p-3">
+        <table class="table-fixed">
+            <thead>
+              <tr>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">Car Name</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">Year of Manufacturing</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">KM Driven</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">Fuel Type</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">Price</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">others</th>
+                <th class="border-b bg-black text-white w-1/4 px-4 py-2"> Product Image</th>
+                <th class="border-b bg-black text-white w-1/4 px-4 py-2">Seller name</th>
+                <th class="border-b bg-black text-white w-1/4 px-4 py-2">Email</th>
+                  <th class="border-b bg-black text-white w-1/4 px-4 py-2">Mobile number</th>
+                <th class="border-b bg-black text-white w-1/4 px-4 py-2">Delete</th>
+              </tr>
+            </thead>
+             {% for j in sellcar %}
+            <tbody>
+              <tr>
+                  <td>{{j.ProName7}}</td>
+                  <td>{{j.Proyear7}}</td>
+                  <td>{{j.Prokms7}}</td>
+                  <td>{{j.Profuel7}}</td>
+                  <td>{{j.ProPrice7}}</td>
+                  <td>{{j.ProDescription7}}</td>
+                  <td>
+                    <img src="{{j.ProImage7.url}}" width="250px" height="150px">
+                  </td>
+                  <td>{{jYname}}</td>
+                  <td>{{jYemail}}</td>
+                  <td>{{j.Yrmob}}</td>
+
+                   <td>
+                    <form action="{% url 'carselldelete' carsellid=j.id %}">
+                      <button type="submit">Delete</button>
+                    </form>
+                  </td>
+              </tr>
+
+            </tbody>
+             {% endfor %}
+        </table>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+        {% for i in messages %}
+            {% if i.tags == 'warning' %}
+                <script>
+                    swal('{{i}}','','warning');
+                </script>
+            {% elif i.tags == 'error' %}
+                <script>
+                    swal('{{i}}','','error');
+                </script>
+            {% else %}
+                <script>
+                    swal('{{i}}','','success');
+                </script>
+            {% endif %}
+        {% endfor %}
+    {%endif%}
+
+</body>
+</html>
+{% endblock %}

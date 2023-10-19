@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="p-3">
+        <table class="table-fixed">
+            <thead>
+              <tr>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">Car Name</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">Year of Manufacturing</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">KM Driven</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">Fuel Type</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">Price</th>
+                <th class="border-b bg-black text-white w-1/2 px-4 py-2">User name</th>
+                <th class="border-b bg-black text-white w-1/4 px-4 py-2">Delete</th>
+              </tr>
+            </thead>
+             {% for k in carrt %}
+            <tbody>
+              <tr>
+                  <td>{{k.Carname}}</td>
+                  <td>{{k.Yearman}}</td>
+                  <td>{{k.Prokms}}</td>
+                  <td>{{k.Profuel}}</td>
+                  <td>{{k.Pricecar}}</td>
+                  <td>{{k.Register.Name}}</td>
+
+
+                  <td>
+                    <form action="{% url 'cartdelete' cartid=k.id %}">
+                      <button type="submit">Delete</button>
+                    </form>
+                  </td>
+              </tr>
+
+            </tbody>
+             {% endfor %}
+        </table>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+        {% for i in messages %}
+            {% if i.tags == 'warning' %}
+                <script>
+                    swal('{{i}}','','warning');
+                </script>
+            {% elif i.tags == 'error' %}
+                <script>
+                    swal('{{i}}','','error');
+                </script>
+            {% else %}
+                <script>
+                    swal('{{i}}','','success');
+                </script>
+            {% endif %}
+        {% endfor %}
+    {%endif%}
+
+</body>
+</html>
+{% endblock %}
